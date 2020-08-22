@@ -1,8 +1,6 @@
 package com.mindorks.retrofit.coroutines.utils
 
-import com.mindorks.retrofit.coroutines.utils.Status.ERROR
-import com.mindorks.retrofit.coroutines.utils.Status.LOADING
-import com.mindorks.retrofit.coroutines.utils.Status.SUCCESS
+import com.mindorks.retrofit.coroutines.utils.Status.*
 
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {

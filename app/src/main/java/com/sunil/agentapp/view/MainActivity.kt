@@ -1,6 +1,5 @@
 package com.sunil.agentapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -65,7 +64,7 @@ class MainActivity : BaseActivity() {
                         progressBar.visibility = View.GONE
                         resource.data?.let { aboutCanada ->
                             Log.e("MainActivity", aboutCanada.toString())
-                            supportActionBar!!.title = "Movie List"
+                            supportActionBar!!.title = getString(R.string.title_name)
                             retrieveList(aboutCanada.results)
                         }
                     }
