@@ -3,6 +3,7 @@ package com.sunil.agentapp.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +35,23 @@ class MainActivity : BaseActivity() {
         } else {
             Toast.makeText(this, getString(R.string.msg_no_internate), Toast.LENGTH_LONG).show()
         }
+        ///
+
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    adapter.getFilter().filter(newText)
+                    return false
+                }
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    adapter.getFilter().filter(query)
+                    return false
+                }
+
+            })
+        //
+
     }
 
     private fun setupViewModel() {

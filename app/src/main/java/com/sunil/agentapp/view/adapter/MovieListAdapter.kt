@@ -3,14 +3,21 @@ package com.sunil.agentapp.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sunil.agentapp.R
 import com.sunil.agentapp.model.Result
-import com.sunil.assignment.utils.getDateFromUtc
 import kotlinx.android.synthetic.main.item_layout.view.*
 
-class MovieListAdapter (private val result: ArrayList<Result>) : RecyclerView.Adapter<MovieListAdapter.DataViewHolder>() {
+class MovieListAdapter(private var result: ArrayList<Result>) : RecyclerView.Adapter<MovieListAdapter.DataViewHolder>() ,
+    Filterable {
+
+    lateinit var mResultCopyData:ArrayList<Result>
+
+
+
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -29,11 +36,19 @@ class MovieListAdapter (private val result: ArrayList<Result>) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder =
-        DataViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false))
+        DataViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_layout,
+                parent,
+                false
+            )
+        )
 
     override fun getItemCount(): Int = result.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
+        mResultCopyData=result
+
         holder.bind(result[position])
     }
 
@@ -43,6 +58,38 @@ class MovieListAdapter (private val result: ArrayList<Result>) : RecyclerView.Ad
             addAll(result)
             notifyDataSetChanged()
         }
+
+    }
+
+    override fun getFilter(): Filter {
+        ///
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val charSequenceString = constraint.toString()
+                if (charSequenceString.isEmpty()) {
+                    result = mResultCopyData
+                } else {
+                    val filteredList: MutableList<Result> = ArrayList()
+                    for (name in mResultCopyData) {
+                        if (name.artistName.toLowerCase()
+                                .contains(charSequenceString.toLowerCase())
+                        ) {
+                            filteredList.add(name)
+                        }
+                        result = filteredList as ArrayList<Result>
+                    }
+                }
+                val results = FilterResults()
+                results.values = result
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                result = results.values as ArrayList<Result>
+                notifyDataSetChanged()
+            }
+        }
+        ///
 
     }
 }
