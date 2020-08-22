@@ -4,6 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import java.text.SimpleDateFormat
+import java.util.*
+
+
+const val UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+const val DATE_FORMAT = "dd MMM yyyy"
 
 fun isNetworkAvailable(context: Context?): Boolean {
     if (context == null) return false
@@ -30,4 +36,19 @@ fun isNetworkAvailable(context: Context?): Boolean {
         }
     }
     return false
+}
+
+
+fun getDateFromUtc(date: String): String {
+
+    val utcDateFormat = SimpleDateFormat(UTC_FORMAT, Locale.getDefault())
+    utcDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+    val utcDate = utcDateFormat.parse(date)
+
+
+    val localDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+    localDateFormat.timeZone = TimeZone.getDefault()
+
+    return localDateFormat.format(utcDate)
 }

@@ -38,4 +38,21 @@
         app:layout_constraintTop_toBottomOf="@+id/txtTitle"
         />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtCollectionName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtDescription"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtCollectionprice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtCollectionName"
+        app:layout_constraintTop_toBottomOf="@+id/txtCollectionName"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

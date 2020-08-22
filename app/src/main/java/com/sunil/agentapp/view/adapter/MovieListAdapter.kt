@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sunil.agentapp.R
 import com.sunil.agentapp.model.Result
+import com.sunil.assignment.utils.getDateFromUtc
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class MovieListAdapter (private val result: ArrayList<Result>) : RecyclerView.Adapter<MovieListAdapter.DataViewHolder>() {
@@ -15,8 +16,10 @@ class MovieListAdapter (private val result: ArrayList<Result>) : RecyclerView.Ad
 
         fun bind(result: Result) {
             itemView.apply {
-                txtTitle.text = result.collectionName
-                txtDescription.text = result.artistName
+                txtTitle.text = result.artistName
+                txtDescription.text ="Track: "+result.trackName
+                txtCollectionName.text="Collection: "+result.collectionName
+                txtCollectionprice.text="CollectionPrice: "+result.collectionPrice+result.currency
                 Glide.with(imageViewAvatar.context)
                     .load(result.artworkUrl60)
                     .placeholder(R.drawable.ic_no_image)
